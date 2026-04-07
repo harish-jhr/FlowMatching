@@ -72,6 +72,20 @@ Saves a grid of 64 images to `./generated/`. Use `--solver heun --steps 50` for 
 
 ---
 
+## Metrics
+
+Evaluated on 3000 generated images (100 Euler steps) vs 3000 GT CelebA-HQ images. FID/KID use InceptionV3 features to compare real and generated distributions (lower FID indicates the generated images are statistically closer to real faces). LPIPS diversity measures how different generated images are from each other using VGG perceptual features on random pairs (higher means less mode collapse).
+
+| Metric | UNet (ep 25) | ViT (ep 100) | Direction |
+|--------|:------------:|:------------:|:---------:|
+| FID | 20.93 | 22.64 | ↓ lower = better |
+| KID | 0.0113 ± 0.0006 | 0.0116 ± 0.0006 | ↓ lower = better |
+| IS | 2.11 ± 0.07 | 2.12 ± 0.06 | ↑ (unreliable for faces) |
+| LPIPS diversity | 0.4422 | 0.4541 | ↑ higher = more diverse |
+
+UNet converges faster (better FID at 4× fewer epochs). ViT shows slightly higher sample diversity at convergence.
+
+
 ## Reference
 
 > Lipman et al., *Flow Matching for Generative Modeling*, ICLR 2023. [arXiv:2210.02747](https://arxiv.org/abs/2210.02747)
